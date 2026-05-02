@@ -1,0 +1,24 @@
+==================================================
+Translation #1
+Time: 2025-11-01 15:43:25
+Original: hi
+Target (mr): हाय
+
+==================================================
+Translation #2
+Time: 2025-11-01 15:45:17
+Original: my name is payal
+Target (mr): माझे नाव पायल आहे
+
+==================================================
+Translation #3
+Time: 2025-11-01 15:45:41
+Original: my name is yugandhar
+Target (mr): माझे नाव युगंधर आहे
+
+==================================================
+Translation #4
+Time: 2025-11-01 15:46:11
+Original: my name is yugandhar
+Target (ur): میرا نام یوگندھر ہے
+
