@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ role }} Registration - Cab Booking</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #e8f5e9,
+                #e3f2fd
+            );
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 550px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 55px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+
+            margin-top: 13px;
+            margin-bottom: 6px;
+
+            font-weight: bold;
+
+            color: #444;
+        }
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+        }
+
+        input:focus,
+        select:focus {
+
+            outline: none;
+
+            border-color: #4CAF50;
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 25px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #4CAF50;
+
+            color: white;
+
+            font-size: 17px;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+
+            background: #388e3c;
+        }
+
+        .login {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #2196F3;
+
+            text-decoration: none;
+        }
+
+        .back {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            color: #666;
+
+            text-decoration: none;
+        }
+
+        .message {
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            text-align: center;
+
+            margin-bottom: 15px;
+        }
+
+        .driver-fields {
+
+            border-top: 2px solid #eee;
+
+            margin-top: 20px;
+
+            padding-top: 10px;
+        }
+
+        .info {
+
+            background: #e3f2fd;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            margin-bottom: 15px;
+
+            color: #1565c0;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- Logo -->
+
+    <div class="logo">
+
+        {% if role == "Passenger" %}
+
+            👤
+
+        {% else %}
+
+            🚖
+
+        {% endif %}
+
+    </div>
+
+
+    <h1>
+
+        📝 {{ role }} Registration
+
+    </h1>
+
+
+    <!-- Messages -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- ========================= -->
+    <!-- PASSENGER REGISTRATION -->
+    <!-- ========================= -->
+
+    {% if role == "Passenger" %}
+
+
+        <form method="POST" action="/passenger/register">
+
+
+            <label>
+
+                👤 Full Name
+
+            </label>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                required
+            >
+
+
+
+            <label>
+
+                📱 Phone Number
+
+            </label>
+
+            <input
+                type="text"
+                name="phone"
+                placeholder="Enter phone number"
+                required
+            >
+
+
+
+            <label>
+
+                🔒 Password
+
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Create password"
+                required
+            >
+
+
+
+            <button type="submit">
+
+                ✅ Register Passenger
+
+            </button>
+
+
+        </form>
+
+
+        <a class="login" href="/passenger/login">
+
+            Already registered? Login
+
+        </a>
+
+
+    {% else %}
+
+
+    <!-- ========================= -->
+    <!-- DRIVER REGISTRATION -->
+    <!-- ========================= -->
+
+
+        <div class="info">
+
+            🚖 Driver information is required to make
+            your cab available to passengers.
+
+        </div>
+
+
+        <form method="POST" action="/driver/register">
+
+
+            <label>
+
+                👤 Driver Name
+
+            </label>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                required
+            >
+
+
+
+            <label>
+
+                📱 Phone Number
+
+            </label>
+
+            <input
+                type="text"
+                name="phone"
+                placeholder="Enter phone number"
+                required
+            >
+
+
+
+            <label>
+
+                🔒 Password
+
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Create password"
+                required
+            >
+
+
+            <div class="driver-fields">
+
+
+                <label>
+
+                    🚗 Car Name
+
+                </label>
+
+                <input
+                    type="text"
+                    name="car"
+                    placeholder="Example: Swift"
+                    required
+                >
+
+
+
+                <label>
+
+                    🚘 Car Model
+
+                </label>
+
+                <input
+                    type="text"
+                    name="model"
+                    placeholder="Example: 2024"
+                    required
+                >
+
+
+
+                <label>
+
+                    ⛽ Fuel Type
+
+                </label>
+
+                <select name="fuel" required>
+
+                    <option value="Petrol">
+                        Petrol
+                    </option>
+
+                    <option value="Diesel">
+                        Diesel
+                    </option>
+
+                    <option value="CNG">
+                        CNG
+                    </option>
+
+                    <option value="Electric">
+                        Electric
+                    </option>
+
+                </select>
+
+
+
+                <label>
+
+                    🚖 Cab Type
+
+                </label>
+
+                <select name="type" required>
+
+                    <option value="Sedan">
+                        Sedan
+                    </option>
+
+                    <option value="Hatchback">
+                        Hatchback
+                    </option>
+
+                    <option value="SUV">
+                        SUV
+                    </option>
+
+                    <option value="Luxury">
+                        Luxury
+                    </option>
+
+                </select>
+
+
+
+                <label>
+
+                    💰 Fare per KM (₹)
+
+                </label>
+
+                <input
+                    type="number"
+                    name="fare"
+                    step="0.01"
+                    min="0"
+                    placeholder="Example: 15"
+                    required
+                >
+
+
+
+                <label>
+
+                    🎁 Discount (%)
+
+                </label>
+
+                <input
+                    type="number"
+                    name="discount"
+                    step="0.01"
+                    min="0"
+                    max="100"
+                    placeholder="Example: 10"
+                    required
+                >
+
+
+            </div>
+
+
+            <button type="submit">
+
+                ✅ Register Driver
+
+            </button>
+
+
+        </form>
+
+
+        <a class="login" href="/driver/login">
+
+            Already registered? Login
+
+        </a>
+
+
+    {% endif %}
+
+
+
+    <a class="back" href="/">
+
+        🔙 Back to Home
+
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>
