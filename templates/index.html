@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🚕 Cab Booking System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 70px;
+        }
+
+        h1 {
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 10px;
+            background: #4CAF50;
+            color: white;
+            font-size: 17px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            background: #388e3c;
+            transform: translateY(-2px);
+        }
+
+        .driver {
+            background: #2196F3;
+        }
+
+        .driver:hover {
+            background: #1976D2;
+        }
+
+        .terms {
+            background: #ff9800;
+        }
+
+        .terms:hover {
+            background: #f57c00;
+        }
+
+        .reset {
+            background: #f44336;
+        }
+
+        .reset:hover {
+            background: #d32f2f;
+        }
+
+        .footer {
+            margin-top: 25px;
+            color: #888;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">🚕</div>
+
+    <h1>Cab Booking System</h1>
+
+    <p class="subtitle">
+        Book your ride quickly and easily
+    </p>
+
+    <a href="/passenger/login" class="button">
+        👤 Passenger Login
+    </a>
+
+    <a href="/driver/login" class="button driver">
+        🚖 Driver Login
+    </a>
+
+    <a href="/terms" class="button terms">
+        📜 Terms & Conditions
+    </a>
+
+    <a href="/reset"
+       class="button reset"
+       onclick="return confirm('Are you sure you want to delete all data?');">
+        🔄 Reset All Data
+    </a>
+
+    <div class="footer">
+        🚕 Cab Booking System
+    </div>
+
+</div>
+
+</body>
+</html>
