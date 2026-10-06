@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Driver Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #222;
+        }
+
+        .header {
+
+            background: #2196F3;
+
+            color: white;
+
+            padding: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+        .header h1 {
+
+            margin: 0;
+
+            font-size: 24px;
+        }
+
+        .header-buttons a {
+
+            color: white;
+
+            text-decoration: none;
+
+            background: rgba(0,0,0,0.2);
+
+            padding: 10px 15px;
+
+            border-radius: 7px;
+
+            margin-left: 5px;
+
+            display: inline-block;
+        }
+
+        .header-buttons a:hover {
+
+            background: rgba(0,0,0,0.35);
+        }
+
+        .container {
+
+            width: 95%;
+
+            max-width: 900px;
+
+            margin: 30px auto;
+        }
+
+        .welcome {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+
+            margin-top: 0;
+
+            color: #333;
+        }
+
+        .online {
+
+            display: inline-block;
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .car-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .car-icon {
+
+            text-align: center;
+
+            font-size: 60px;
+        }
+
+        .car-card h2 {
+
+            text-align: center;
+
+            margin: 10px 0 25px;
+
+            color: #333;
+        }
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 15px;
+        }
+
+        .detail {
+
+            background: #f5f7f9;
+
+            padding: 15px;
+
+            border-radius: 10px;
+        }
+
+        .detail-label {
+
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+
+            font-weight: bold;
+
+            color: #333;
+
+            font-size: 16px;
+        }
+
+        .buttons {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 15px;
+
+            margin-top: 25px;
+        }
+
+        .button {
+
+            display: block;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+        .blue {
+
+            background: #2196F3;
+        }
+
+        .blue:hover {
+
+            background: #1976D2;
+        }
+
+        .green {
+
+            background: #4CAF50;
+        }
+
+        .green:hover {
+
+            background: #388e3c;
+        }
+
+        .message {
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+<div class="header">
+
+    <h1>
+        🚕 Cab Booking System
+    </h1>
+
+    <div class="header-buttons">
+
+        <a href="/driver/bookings">
+            🧾 My Bookings
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<div class="container">
+
+
+    <!-- FLASH MESSAGE -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- ========================= -->
+    <!-- WELCOME -->
+    <!-- ========================= -->
+
+    <div class="welcome">
+
+        <h2>
+
+            🚖 Welcome,
+            {{ driver["name"] }}!
+
+        </h2>
+
+        <span class="online">
+
+            🟢 ONLINE
+
+        </span>
+
+        <p>
+
+            You are currently available for cab bookings.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- CAR INFORMATION -->
+    <!-- ========================= -->
+
+    <div class="car-card">
+
+
+        <div class="car-icon">
+            🚕
+        </div>
+
+
+        <h2>
+
+            {{ driver["car"] }}
+            ({{ driver["model"] }})
+
+        </h2>
+
+
+        <div class="details">
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    👤 Driver
+                </div>
+
+                <div class="detail-value">
+                    {{ driver["name"] }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    📱 Phone
+                </div>
+
+                <div class="detail-value">
+                    {{ driver["phone"] }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    🚗 Car
+                </div>
+
+                <div class="detail-value">
+                    {{ driver["car"] }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    🚘 Model
+                </div>
+
+                <div class="detail-value">
+                    {{ driver["model"] }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    ⛽ Fuel
+                </div>
+
+                <div class="detail-value">
+                    {{ driver["fuel"] }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    🚖 Cab Type
+                </div>
+
+                <div class="detail-value">
+                    {{ driver["type"] }}
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    💰 Fare per KM
+                </div>
+
+                <div class="detail-value">
+
+                    ₹{{ "%.2f"|format(driver["fare"]) }}
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    🎁 Discount
+                </div>
+
+                <div class="detail-value">
+
+                    {{ driver["discount"] }}%
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+
+            <a
+                href="/driver/bookings"
+                class="button blue"
+            >
+
+                🧾 View My Bookings
+
+            </a>
+
+
+            <a
+                href="/logout"
+                class="button green"
+            >
+
+                🚪 Logout
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
