@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Passenger Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #222;
+        }
+
+        .header {
+
+            background: #4CAF50;
+
+            color: white;
+
+            padding: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+        .header h1 {
+
+            margin: 0;
+
+            font-size: 24px;
+        }
+
+        .header-buttons a {
+
+            color: white;
+
+            text-decoration: none;
+
+            background: rgba(0,0,0,0.2);
+
+            padding: 10px 15px;
+
+            border-radius: 7px;
+
+            margin-left: 5px;
+
+            display: inline-block;
+        }
+
+        .header-buttons a:hover {
+
+            background: rgba(0,0,0,0.35);
+        }
+
+        .container {
+
+            width: 95%;
+
+            max-width: 1100px;
+
+            margin: 30px auto;
+        }
+
+        .welcome {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+
+            margin-top: 0;
+
+            color: #333;
+        }
+
+        .filters {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .filters h2 {
+
+            margin-top: 0;
+        }
+
+        .filter-row {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 15px;
+        }
+
+        .filter-group label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-weight: bold;
+
+            color: #555;
+        }
+
+        select {
+
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        .find-button {
+
+            margin-top: 20px;
+
+            padding: 12px 25px;
+
+            background: #2196F3;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+        .find-button:hover {
+
+            background: #1976D2;
+        }
+
+        .cab-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 20px;
+        }
+
+        .cab-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+
+            transition: 0.2s;
+        }
+
+        .cab-card:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .cab-icon {
+
+            font-size: 45px;
+
+            text-align: center;
+        }
+
+        .cab-card h3 {
+
+            text-align: center;
+
+            margin: 10px 0 20px;
+
+            color: #333;
+        }
+
+        .detail {
+
+            padding: 8px 0;
+
+            border-bottom: 1px solid #eee;
+
+            color: #555;
+        }
+
+        .fare {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #2e7d32;
+
+            margin-top: 15px;
+        }
+
+        .discount {
+
+            color: #e65100;
+
+            margin-top: 5px;
+        }
+
+        .book-button {
+
+            display: block;
+
+            width: 100%;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            padding: 12px;
+
+            background: #4CAF50;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+        }
+
+        .book-button:hover {
+
+            background: #388e3c;
+        }
+
+        .no-drivers {
+
+            background: white;
+
+            padding: 40px;
+
+            text-align: center;
+
+            border-radius: 15px;
+
+            color: #777;
+        }
+
+        .message {
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+<div class="header">
+
+    <h1>
+        🚕 Cab Booking System
+    </h1>
+
+    <div class="header-buttons">
+
+        <a href="/passenger/bookings">
+            🧾 My Bookings
+        </a>
+
+        <a href="/logout">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<div class="container">
+
+
+    <!-- ========================= -->
+    <!-- WELCOME -->
+    <!-- ========================= -->
+
+    <div class="welcome">
+
+        <h2>
+            👤 Welcome, {{ session["user"]["name"] }}!
+        </h2>
+
+        <p>
+            Find an available cab and book your ride.
+        </p>
+
+    </div>
+
+
+
+    <!-- FLASH MESSAGES -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- ========================= -->
+    <!-- FILTERS -->
+    <!-- ========================= -->
+
+    <div class="filters">
+
+        <h2>
+            🔍 Find Your Cab
+        </h2>
+
+        <form method="GET"
+              action="/passenger/dashboard">
+
+            <div class="filter-row">
+
+
+                <!-- MODEL -->
+
+                <div class="filter-group">
+
+                    <label>
+                        🚘 Car Model
+                    </label>
+
+                    <select name="model">
+
+                        <option value="All">
+                            All Models
+                        </option>
+
+                        {% for model in models %}
+
+                            <option value="{{ model }}"
+                                {% if selected_model == model %}
+                                    selected
+                                {% endif %}>
+
+                                {{ model }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- FUEL -->
+
+                <div class="filter-group">
+
+                    <label>
+                        ⛽ Fuel Type
+                    </label>
+
+                    <select name="fuel">
+
+                        <option value="All">
+                            All Fuel Types
+                        </option>
+
+                        {% for fuel in fuels %}
+
+                            <option value="{{ fuel }}"
+                                {% if selected_fuel == fuel %}
+                                    selected
+                                {% endif %}>
+
+                                {{ fuel }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- CAB TYPE -->
+
+                <div class="filter-group">
+
+                    <label>
+                        🚖 Cab Type
+                    </label>
+
+                    <select name="type">
+
+                        <option value="All">
+                            All Types
+                        </option>
+
+                        {% for type in types %}
+
+                            <option value="{{ type }}"
+                                {% if selected_type == type %}
+                                    selected
+                                {% endif %}>
+
+                                {{ type }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button class="find-button"
+                    type="submit">
+
+                🔍 Find Cabs
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- AVAILABLE CABS -->
+    <!-- ========================= -->
+
+    <h2>
+        🚖 Available Cabs
+    </h2>
+
+
+    {% if drivers %}
+
+
+        <div class="cab-grid">
+
+
+            {% for driver in drivers %}
+
+
+                <div class="cab-card">
+
+
+                    <div class="cab-icon">
+                        🚕
+                    </div>
+
+
+                    <h3>
+                        {{ driver["name"] }}
+                    </h3>
+
+
+                    <div class="detail">
+
+                        🚗 <strong>Car:</strong>
+
+                        {{ driver["car"] }}
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        🚘 <strong>Model:</strong>
+
+                        {{ driver["model"] }}
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        ⛽ <strong>Fuel:</strong>
+
+                        {{ driver["fuel"] }}
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        🚖 <strong>Type:</strong>
+
+                        {{ driver["type"] }}
+
+                    </div>
+
+
+                    <div class="fare">
+
+                        💰 ₹{{ "%.2f"|format(driver["fare"]) }}/km
+
+                    </div>
+
+
+                    <div class="discount">
+
+                        🎁 {{ driver["discount"] }}% discount
+
+                    </div>
+
+
+                    <a class="book-button"
+                       href="/book/{{ driver['phone'] }}">
+
+                        🚕 Book Now
+
+                    </a>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <div class="no-drivers">
+
+            <div style="font-size:50px;">
+                🚕
+            </div>
+
+            <h3>
+                No online drivers available
+            </h3>
+
+            <p>
+                Please try again later or change your filters.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>
